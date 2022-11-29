@@ -6,7 +6,7 @@ import { data } from '../../utils/data';
 
 function HomeCards() {
     return (
-        <div className='w-full h-full mt-[12%]'>
+        <div className='w-full h-full mt-[12vh]'>
             <div className="cards-container grid grid-cols-3 gap-4">
                 {data.home.categories.map((item:any, index:any) => {return (
                     <Link href={item.link} 
@@ -14,7 +14,7 @@ function HomeCards() {
                     key={index}>
                             <img className='w-full h-[90%] object-cover rounded-t-lg relative transition ease-out delay-150' 
                             src={item.img}/>
-                            <Typography variant='h5' className='h-[10%] w-full bg-mainbg rounded-b-lg text-tertiary'>{item.titlePt}</Typography>
+                            <Typography variant='h6' className='h-[10%] w-full bg-mainbg rounded-b-lg text-tertiary uppercase'>{item.titlePt}</Typography>
                     </Link>
                 )
                 })}

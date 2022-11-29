@@ -1,10 +1,18 @@
 import { Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-function index() {
+function index(active: any) {
+
+  const[activePage, setActivePage] = useState(0);
+
+  useEffect(() => {
+    if(active.active != null) setActivePage(active.active);
+    else setActivePage(active);
+  }, [active])
+  
   return (
-    <div className="mx-[15%] text-center">
-        <Typography variant='h3'>Musica</Typography>
+    <div className="mx-[15%] text-center border-x h-screen p-[2rem]">
+      Brevemente...
     </div>
   )
 }

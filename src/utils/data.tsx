@@ -1,9 +1,10 @@
 import React from 'react'
+import dynamic from 'next/dynamic'
 import { SportsSoccer, MusicNote, Info, VolunteerActivism, Settings, Login, Logout, Home } from '@mui/icons-material';
 
 
 export const data: any = {
-    menu: {
+    sidebar: {
         menuItems: [
             {
                 icon: <Home />,
@@ -13,14 +14,14 @@ export const data: any = {
             },
             {
                 icon: <SportsSoccer />,
-                link: "/soccer",
-                titlePt: "Futebol",
-                titleEn: "Soccer"
+                link: "/futsal",
+                titlePt: "Futsal",
+                titleEn: "Futsal"
             },
             {
                 icon: <MusicNote />,
                 link: "/music",
-                titlePt: "Musica",
+                titlePt: "Música",
                 titleEn: "Music"
             },
 
@@ -63,20 +64,66 @@ export const data: any = {
             }
         ]
     },
+    navbar:{
+        futsal : [
+            {
+                textPt: "Futsal",
+                textEn: "Futsal"
+            },
+            {
+                textPt: "Estatisticas",
+                textEn: "Statistics"
+            },
+            {
+                textPt: "Torneios",
+                textEn: "Tournaments"
+            }
+        ],
+        music : [
+            {
+                textPt: "Música",
+                textEn: "Music"
+            }
+        ],
+        charity : [
+            {
+                textPt: "Caridade",
+                textEn: "Charity"
+            },
+            {
+                textPt: "Instituições",
+                textEn: "Institutions"
+            }
+        ],
+        about : [
+            {
+                textPt: "Sobre Nós",
+                textEn: "About Us"
+            },
+            {
+                textPt: "Contactos",
+                textEn: "Contacts"
+            },
+            {
+                textPt: "Parcerias",
+                textEn: "Sponsorships"
+            }
+        ],
+    },
     home: {
         categories:[
             {
                 icon: <SportsSoccer />,
-                link: "/soccer",
-                img: "/soccerCard.jpg",
-                titlePt: "Futebol",
-                titleEn: "Soccer"
+                link: "/futsal",
+                img: "/futsalCard.png",
+                titlePt: "Futsal",
+                titleEn: "Futsal"
             },
             {
                 icon: <MusicNote />,
                 link: "/music",
                 img: "/rapCard.jpg",
-                titlePt: "Musica",
+                titlePt: "Música",
                 titleEn: "Music"
             },
 

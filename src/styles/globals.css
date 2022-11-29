@@ -9,6 +9,7 @@
   --primary-color: rgb(119, 223, 255);
   --secondary-color: rgb(159, 233, 255);
   --tertiary-color: rgb(35, 76, 88);
+  --quaternary-color: rgb(65, 195, 255);
   --bg-color: white;
   --component-color: rgb(230, 230, 230);
   --text-main-color: rgb(35, 76, 88);
@@ -25,7 +26,87 @@ body{
     background-color: var(--bg-color);
 }
 
+table{
+    border-collapse: collapse;
+}
+
+td {
+    margin: 0;
+    padding: 8px;
+    outline-width: 1px;
+    outline-style: solid;
+  }
+
 .MuiButton-text{
     color:var(--text-main-color);
 }
 
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--quaternary-color);
+  }
+
+.active{
+    background-color: var(--quaternary-color);
+    color: white !important;
+    fill: white !important;
+}
+
+.active > svg > path{
+    color: white !important;
+}
+
+.active > span > svg > path{
+    color: white !important;
+}
+
+.active:hover{
+    color: var(--text-main-color) !important;
+}
+
+.active:hover > svg > path{
+    color: var(--text-main-color) !important;
+}
+
+.active:hover > span > svg > path {
+    color: var(--text-main-color) !important;
+}
+
+.active-menu{
+    color: var(--quaternary-color);
+    transform: scale(1.2, 1.2);
+}
+
+.topBtn{
+    bottom: 50px;
+    right: 50px;
+    position: fixed;
+    background-color: var(--primary-color);
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    transition: all ease-in-out 150ms;
+}
+
+.topBtn:hover{
+    background-color: var(--secondary-color);
+    transform: scale(1.2, 1.2);
+}
+
+.svgDisabled > path{
+    color: rgb(196, 196, 196) !important;
+}
