@@ -54,3 +54,30 @@ export type Game = {
     team1Result?: number | null,
     team2Result?: number | null
 };
+
+export type MainEvent = {
+    id: number,
+    date: Date,
+    title: string,
+    categoryId: number,
+    category: Category,
+    gameId: number,
+    game: Game,
+    relatedPosts: Posts[]
+}
+
+export type Posts = {
+    id: number,
+    title: string,
+    body:string,
+    date:Date,
+    categoryId:number,
+    category:Category,
+    mainEventsId: number,
+    mainEvents: MainEvent
+}
+
+export type Category = {
+    id:number,
+    name: string
+}

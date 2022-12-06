@@ -4,7 +4,6 @@ import Link from "next/link";
 import Typography from '@mui/material/Typography';
 
 import { trpc } from "../utils/trpc";
-import HomeCards from "../components/Cards/HomeCards";
 import TimeLine from "../components/Timeline/TimeLine";
 import { useEffect } from "react";
 

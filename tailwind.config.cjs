@@ -10,7 +10,11 @@ module.exports = {
         primary: "var(--primary-color)",
         secondary: "var(--secondary-color)",
         tertiary: "var(--tertiary-color)",
-        quaternary: "var(--quaternary-color)"
+        quaternary: "var(--quaternary-color)",
+        'futsal': "var(--futsal-color)",
+        'education': "var(--education-color)",
+        'music': "var(--music-color)",
+        'charity': "var(--charity-color)"
       }
     },
   },

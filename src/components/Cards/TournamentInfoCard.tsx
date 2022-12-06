@@ -4,8 +4,6 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { trpc } from '../../utils/trpc';
 import { Statistics, TournamentStatistics } from '../../types/trpc-types';
-import { stat } from 'fs';
-import { data } from '../../utils/data';
 
 function TournamentInfoCard() {
     const { data: itemsData, isLoading } = trpc.tournaments.getTournamentsStats.useQuery();

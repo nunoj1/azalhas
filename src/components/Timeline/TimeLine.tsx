@@ -1,127 +1,36 @@
 import { Typography } from '@mui/material';
-import { Link } from 'framer';
 import React, { useEffect, useState } from 'react'
+import { School, SportsSoccer, MusicNote, VolunteerActivism } from '@mui/icons-material';
+import { trpc } from '../../utils/trpc';
+import { Categories, MainEvents } from '@prisma/client';
 
 function TimeLine() {
 
-    const [timeLineData, setTimeLineData] = useState<{ title: string, description1: string, description2: string, date: Date, category: string, eventLink: string }[]>([]);
+    const [timeLineData, setTimeLineData] = useState<(MainEvents & { category: Categories; })[]>();
 
-    const data: { title: string, description1: string, description2: string, date: Date, category: string, eventLink: string }[] = [
-        {
-            title: "Immerse Global Summit",
-            description1: "Miami",
-            description2: "Evento de partilha das novas tecnologias que irão surgir pelo mundo",
-            date: new Date(2022, 12 - 1, 5),
-            category: "education",
-            eventLink: "/education&event=4"
-        },
-        {
-            title: "Hip Hop Sessions",
-            description1: "Living room",
-            description2: "Evento para os artirtas da ilha no mundo de hip hop",
-            date: new Date(2022, 11 - 1, 30),
-            category: "music",
-            eventLink: "/music&event=6"
-        },
-        {
-            title: "Azelhas - Ribeira Brava",
-            description1: "Estádio da Ribeira Brava",
-            description2: "Jogo intensivo de 5 para 4 recuado, terminado com a vitória inédita dos Azelha",
-            date: new Date(2022, 11 - 1, 8),
-            category: "futsal",
-            eventLink: "/futsal&event=87"
-        },
-        {
-            title: "Formação BlockChain",
-            description1: "Escola Francisco Franco",
-            description2: "Projeto de formação sobre x",
-            date: new Date(2022, 11 - 1, 2),
-            category: "education",
-            eventLink: "/education&event=2"
-        },
-        {
-            title: "Azelhas - Santana",
-            description1: "Estádio da Choupana",
-            description2: "Jogo intensivo de 6 para 3 recuado, onde o empate foi excelencia",
-            date: new Date(2022, 10 - 1, 18),
-            category: "futsal",
-            eventLink: "/futsal&event=86"
-        },
-        {
-            title: "Associação teste",
-            description1: "Forum Madeira",
-            description2: "Assistencia a jovens",
-            date: new Date(2022, 10 - 1, 18),
-            category: "charity",
-            eventLink: "/charity&event=5"
-        },
-        {
-            title: "Azelhas - Santana",
-            description1: "Estádio da Choupana",
-            description2: "Jogo intensivo de 6 para 3 recuado, onde o empate foi excelencia",
-            date: new Date(2022, 10 - 1, 18),
-            category: "futsal",
-            eventLink: "/futsal&event=86"
-        },
-        {
-            title: "Azelhas - Santana",
-            description1: "Estádio da Choupana",
-            description2: "Jogo intensivo de 6 para 3 recuado, onde o empate foi excelencia",
-            date: new Date(2022, 10 - 1, 18),
-            category: "futsal",
-            eventLink: "/futsal&event=86"
-        },
-        {
-            title: "Associação teste",
-            description1: "Forum Madeira",
-            description2: "Assistencia a jovens",
-            date: new Date(2022, 10 - 1, 18),
-            category: "charity",
-            eventLink: "/charity&event=5"
-        },
-        {
-            title: "Azelhas - Santana",
-            description1: "Estádio da Choupana",
-            description2: "Jogo intensivo de 6 para 3 recuado, onde o empate foi excelencia",
-            date: new Date(2022, 10 - 1, 18),
-            category: "futsal",
-            eventLink: "/futsal&event=86"
-        },
-        {
-            title: "Azelhas - Santana",
-            description1: "Estádio da Choupana",
-            description2: "Jogo intensivo de 6 para 3 recuado, onde o empate foi excelencia",
-            date: new Date(2022, 10 - 1, 18),
-            category: "futsal",
-            eventLink: "/futsal&event=86"
-        },
-        {
-            title: "Azelhas - Santana",
-            description1: "Estádio da Choupana",
-            description2: "Jogo intensivo de 6 para 3 recuado, onde o empate foi excelencia",
-            date: new Date(2022, 10 - 1, 18),
-            category: "futsal",
-            eventLink: "/futsal&event=86"
-        }
-    ]
+    const { data: itemsData, isLoading } = trpc.mainEvents.getTimeLineData.useQuery();
 
     useEffect(() => {
-        let newData: { title: string, description1: string, description2: string, date: Date, category: string, eventLink: string }[] = [];
-        let index = 0;
-        const current = new Date();
-        const numberOfDaysToSubtract = 1;
-        const prior = new Date().setDate(current.getDate() - numberOfDaysToSubtract);
-        let foundToday = false;
-        for (let i = 0; i < data.length; i++) {
-            if (data[i].date < new Date(prior) && !foundToday) {
-                newData.push({ title: "today", description1: "today", description2: "today", date: new Date(), category: "today", eventLink: "today" });
-                newData.push(data[i]);
-                foundToday = true;
-            } else newData.push(data[i]);
+        if (itemsData != null && itemsData != undefined) {
+            let newData: (MainEvents & { category: Categories; })[] = [];
+            let index = 0;
+            const current = new Date();
+            const numberOfDaysToSubtract = 1;
+            const prior = new Date().setDate(current.getDate() - numberOfDaysToSubtract);
+            let foundToday = false;
+            for (let i = 0; i < itemsData.length; i++) {
+                if (itemsData[i]!.date < new Date(prior) && !foundToday) {
+                    newData.push({ id: 0, title: "today", date: new Date(), categoryId: 0, gameId: null, category: {id: 0, name: 'today'} });
+                    newData.push(itemsData[i]!);
+                    foundToday = true;
+                } else newData.push(itemsData[i]!);
+            }
+
+            setTimeLineData(newData);
         }
+    }, [itemsData])
 
-        setTimeLineData(newData);
-
+    useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
@@ -135,24 +44,48 @@ function TimeLine() {
 
         const hiddenElements = document.querySelectorAll('.hide-tlitem');
         hiddenElements.forEach((el) => observer.observe(el));
-    }, []);
+    }, [timeLineData])
 
+    const getMonthFromDate = (date: Date): string => {
+        let monthList: string[] = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+
+        return `${monthList[date.getMonth()]}`;
+    }
+
+    const getCategoryIcon = (category: string) => {
+        if (category === "education") return <School className='school-icon' />
+        else if (category === "futsal") return <SportsSoccer className='futsal-icon' />
+        else if (category === "music") return <MusicNote className='music-icon' />
+        else if (category === "charity") return <VolunteerActivism className='charity-icon' />
+    }
+
+    const getBorderColor = (category: string) => {
+        let classList = "hide-tlitem p-1 hover:border rounded-xl hover:border-b-8 ";
+        if (category === "education") classList += "border-education"
+        else if (category === "futsal") classList += "border-futsal"
+        else if (category === "music") classList += "border-music"
+        else if (category === "charity") classList += "border-charity"
+        return classList;
+    }
+
+    if (isLoading) return (<div>Loading...</div>)
     return (
         <section className='timeline w-[96vw] absolute left-[60px]'>
             <ol>
-                {data.map((item, index) => {
+                {timeLineData?.map((item, index) => {
+                    if (item.id === 0) return <li className="today-li" key={index} ><div className='today-item'>Dia Atual</div></li>
+
                     return <li key={index} >
-                        <div className="hide-tlitem">
-                            <Link href={item.eventLink}>
-                                <span>
-                                    <time>{item.date.toLocaleDateString()}</time>
-                                    <Typography variant="h6" component="span">
-                                        {item.title}
-                                    </Typography>
-                                    <Typography color="text.secondary">{item.description1}</Typography>
-                                    <Typography color="text.secondary">{item.description2}</Typography>
-                                </span>
-                            </Link>
+                        <div className={getBorderColor(item.category.name)}>
+                            {getCategoryIcon(item.category.name)}
+                            <br />
+                            <span>
+                                <Typography variant="h6" component="span">
+                                    {item.title}
+                                </Typography>
+                                <br />
+                            </span>
+                            <span className='text-black flex flex-row justify-center align-middle items-center'> {item.date.toLocaleDateString()} </span>
                         </div>
                     </li>
                 })}

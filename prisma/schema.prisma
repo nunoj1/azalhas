@@ -104,4 +104,34 @@ model Games {
   team2Result  Int?
   tournamentId Int?
   tournament   Tournaments? @relation("GameTournament", fields: [tournamentId], references: [id])
+  MainEvents   MainEvents[]
+}
+
+model MainEvents {
+  id           Int        @id @default(autoincrement())
+  date         DateTime
+  title        String
+  categoryId   Int
+  category     Categories @relation(fields: [categoryId], references: [id])
+  gameId       Int?
+  game         Games?      @relation(fields: [gameId], references: [id])
+  realtedPosts Posts[]
+}
+
+model Categories {
+  id         Int          @id @default(autoincrement())
+  name       String       @unique
+  mainEvents MainEvents[]
+  Posts      Posts[]
+}
+
+model Posts {
+  id           Int         @id @default(autoincrement())
+  title        String
+  body         String
+  date         DateTime
+  categoryId   Int
+  category     Categories  @relation(fields: [categoryId], references: [id])
+  mainEventsId Int?
+  MainEvents   MainEvents? @relation(fields: [mainEventsId], references: [id])
 }
