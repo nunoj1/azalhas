@@ -27,12 +27,12 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? // @db.Text
-  access_token      String? // @db.Text
+  refresh_token     String? //@db.Text
+  access_token      String? //@db.Text
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? // @db.Text
+  id_token          String? //@db.Text
   session_state     String?
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -63,4 +63,45 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Tournaments {
+  id                 Int               @id @default(autoincrement())
+  tournamentName     String
+  startDate          DateTime
+  tournamentFinished Boolean           @default(false)
+  teams              TournamentTeams[]
+  games              Games[]           @relation("GameTournament")
+}
+
+model TournamentTeams {
+  id           Int         @id @default(autoincrement())
+  tournamentId Int
+  teamId       Int
+  tournament   Tournaments @relation(fields: [tournamentId], references: [id])
+  team         Teams       @relation(fields: [teamId], references: [id])
+}
+
+model Teams {
+  id          Int               @id @default(autoincrement())
+  name        String
+  shortName   String
+  picture     String?
+  tournaments TournamentTeams[]
+  homeGames   Games[]           @relation(name: "Home Team")
+  awayGames   Games[]           @relation(name: "Away Team")
+}
+
+model Games {
+  id           Int          @id @default(autoincrement())
+  date         DateTime
+  location     String?
+  team1Id      Int
+  team2Id      Int
+  team1        Teams        @relation(fields: [team1Id], references: [id], name: "Home Team")
+  team2        Teams        @relation(fields: [team2Id], references: [id], name: "Away Team")
+  team1Result  Int?
+  team2Result  Int?
+  tournamentId Int?
+  tournament   Tournaments? @relation("GameTournament", fields: [tournamentId], references: [id])
 }

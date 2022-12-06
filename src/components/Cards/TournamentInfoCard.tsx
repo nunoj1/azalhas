@@ -2,95 +2,49 @@ import { Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { trpc } from '../../utils/trpc';
+import { Statistics, TournamentStatistics } from '../../types/trpc-types';
+import { stat } from 'fs';
+import { data } from '../../utils/data';
 
 function TournamentInfoCard() {
+    const { data: itemsData, isLoading } = trpc.tournaments.getTournamentsStats.useQuery();
 
-    const tournamentsData: any = [
-        {
-            tournamentName: "Taça de teste",
-            teamsData: [
-                {
-                    teamName: "Sporting",
-                    teamPicture: "/equipas/sporting.jpg",
-                    teamPoints: 12,
-                    teamVictories: 4,
-                    teamDraws: 0,
-                    teamLoses: 0,
-                    teamPlacement: 1
-                },
-                {
-                    teamName: "Benfica",
-                    teamPicture: "/equipas/benfica.png",
-                    teamPoints: 7,
-                    teamVictories: 1,
-                    teamDraws: 2,
-                    teamLoses: 1,
-                    teamPlacement: 2
-                },
-                {
-                    teamName: "Juventus",
-                    teamPicture: "/equipas/juventus.jpg",
-                    teamPoints: 4,
-                    teamVictories: 0,
-                    teamDraws: 2,
-                    teamLoses: 2,
-                    teamPlacement: 3
-                }
-            ]
-        },
-        {
-            tournamentName: "Taça da Liga",
-            teamsData: [
-                {
-                    teamName: "Juventus",
-                    teamPicture: "/equipas/juventus.jpg",
-                    teamPoints: 3,
-                    teamVictories: 1,
-                    teamDraws: 0,
-                    teamLoses: 0,
-                    teamPlacement: 1
-                },
-                {
-                    teamName: "Benfica",
-                    teamPicture: "/equipas/benfica.png",
-                    teamPoints: 2,
-                    teamVictories: 0,
-                    teamDraws: 1,
-                    teamLoses: 0,
-                    teamPlacement: 2
-                },
-                {
-                    teamName: "Porto",
-                    teamPicture: "/equipas/porto.png",
-                    teamPoints: 2,
-                    teamVictories: 0,
-                    teamDraws: 1,
-                    teamLoses: 0,
-                    teamPlacement: 3
-                }
-            ]
-        }
-    ]
-
-    const [selectedTournament, setSelectedTournament] = useState(tournamentsData.length - 1);
-    const [selectedTournamentData, setSelectedTournamentData] = useState(tournamentsData[tournamentsData.length - 1]);
-
+    const [selectedTournament, setSelectedTournament] = useState(0);
+    const [selectedTournamentData, setSelectedTournamentData] = useState<TournamentStatistics>();
 
     useEffect(() => {
-        if (tournamentsData[selectedTournament] != null) setSelectedTournamentData(tournamentsData[selectedTournament]);
+        if(itemsData != null){
+            if (itemsData[selectedTournament] != null) {
+                setSelectedTournamentData(itemsData[selectedTournament]);
+            }
+        }
     }, [selectedTournament])
 
-    console.log(selectedTournamentData)
+    useEffect(() => {
+        if(itemsData != null){
+            if (itemsData[selectedTournament] != null) {
+                setSelectedTournament(getLastIndex())
+            }
+        }
+    }, [itemsData])
+
+    const getLastIndex = () => {
+        if(itemsData !== null && itemsData !== undefined){
+            return itemsData.length - 1;
+        }
+        return 0;
+    }
 
     return (
-        <div className='m-auto flex flex-col justify-center items-center p-5 border w-[48%] h-[300px] rounded-sm border-tertiary'>
+        <div className='m-[6px] flex flex-col justify-center items-center p-5 border min-w-[49%] h-[300px] rounded-sm border-tertiary'>
             <div className='flex flex-row justify-center items-center pb-4'>
                 <button disabled={selectedTournament === 0} onClick={() => setSelectedTournament(selectedTournament - 1)}>
                     <ArrowBackIosIcon className={`${selectedTournament === 0 ? 'svgDisabled' : ""}`} />
                 </button>
-                <Typography variant='h6' className='font-extrabold mx-4'>{selectedTournamentData.tournamentName} - Top 3</Typography>
-                <button disabled={selectedTournament >= tournamentsData.length - 1} onClick={() => setSelectedTournament(selectedTournament + 1)}>
-                    <ArrowForwardIosIcon className={`${selectedTournament >= tournamentsData.length - 1 ? 'svgDisabled' : ""}`} />
+                <Typography variant='h6' className='font-extrabold mx-4'>{selectedTournamentData?.tournament.tournamentName} - {selectedTournamentData?.tournament.tournamentFinished ? 'Terminado' : selectedTournamentData?.tournament.startDate && selectedTournamentData?.tournament.startDate > new Date() ? 'Por Iniciar' : 'Em Progresso'}</Typography>
+                <button disabled={selectedTournament >= getLastIndex()} onClick={() => setSelectedTournament(selectedTournament + 1)}>
+                    <ArrowForwardIosIcon className={`${selectedTournament >= getLastIndex() ? 'svgDisabled' : ""}`} />
                 </button>
             </div>
             {/* Header */}
@@ -108,15 +62,15 @@ function TournamentInfoCard() {
                 {/* Results */}
 
                 <tbody>
-
-                    {selectedTournamentData.teamsData.map((team: any, index: any) => {
+                    {selectedTournamentData?.stats.map((stats: Statistics, index: any) => {
+                        if(index > 2) return null
                         return <tr key={index}>
-                            <td className='font-extrabold'>{team.teamPlacement}</td>
-                            <td className='flex flex-row'><img className='w-7 h-7' src={team.teamPicture} />{team.teamName}</td>
-                            <td className='font-extrabold'>{team.teamPoints}</td>
-                            <td>{team.teamVictories}</td>
-                            <td>{team.teamDraws}</td>
-                            <td>{team.teamLoses}</td>
+                            <td className='font-extrabold'>{selectedTournamentData.tournament.startDate && selectedTournamentData.tournament.startDate < new Date() ? stats.teamPlacement : '-'}</td>
+                            <td className='flex flex-row'><img className='w-7 h-7' src={stats.team?.picture ?? ''} />{stats.team?.name}</td>
+                            <td className='font-extrabold'>{stats.teamPoints}</td>
+                            <td>{stats.teamWins}</td>
+                            <td>{stats.teamDraws}</td>
+                            <td>{stats.teamLoses}</td>
                         </tr>
                     })}
                 </tbody>

@@ -15,7 +15,7 @@ function Header(props:Props) {
     return (
       <div className='flex py-10 text-center items-center justify-center'>
         <Typography variant="h2" className='font-light text-tertiary uppercase'>
-          Madeira Experience
+          Fundação Azalhas
         </Typography>
       </div>)
   }
@@ -30,7 +30,7 @@ function Header(props:Props) {
       if (currentPage === "music") setNavData(data.navbar.music);
       if (currentPage === "charity") setNavData(data.navbar.charity);
       if (currentPage === "about") setNavData(data.navbar.about);
-    })
+    }, [])
 
     useEffect(() => {
       props.setActive(0);

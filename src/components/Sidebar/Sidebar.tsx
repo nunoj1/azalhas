@@ -98,7 +98,7 @@ function Sidebar({ session }: Props) {
     return (
         <section>
             <ClickAwayListener onClickAway={handleClickAway}>
-                <div className={`fixed left-0 top-0 ${collapsed == true ? "w-[50px]" : "lg:w-1/6 md:w-1/4 sm:1/2"} flex justify-between items-center flex-col h-full rounded-tr-[10px] rounded-br-[10px] bg-component`}>
+                <div className={`fixed left-0 top-0 ${collapsed == true ? "w-[50px]" : "lg:w-1/6 md:w-1/4 sm:1/2"} flex justify-between items-center flex-col h-full rounded-tr-[10px] rounded-br-[10px] bg-component z-10`}>
                     {/* Header */}
                     <div className='w-full '>
                         <div className='flex justify-between flex-row w-full'>

@@ -8,7 +8,7 @@ import "../styles/globals.css";
 
 import Sidebar from "../components/Sidebar/Sidebar";
 import Header from "../components/Header/Header";
-import { Suspense, useEffect, useState } from "react";
+import { useState } from "react";
 import { AnimatePresence, domAnimation, LazyMotion, m } from "framer";
 import ButtonTop from "../components/Buttons/ButtonTop";
 

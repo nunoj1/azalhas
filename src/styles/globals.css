@@ -6,27 +6,27 @@
 @tailwind utilities;
 
 :root {
-  --primary-color: rgb(119, 223, 255);
-  --secondary-color: rgb(159, 233, 255);
-  --tertiary-color: rgb(35, 76, 88);
-  --quaternary-color: rgb(65, 195, 255);
-  --bg-color: white;
-  --component-color: rgb(230, 230, 230);
-  --text-main-color: rgb(35, 76, 88);
+    --primary-color: rgb(119, 223, 255);
+    --secondary-color: rgb(159, 233, 255);
+    --tertiary-color: rgb(35, 76, 88);
+    --quaternary-color: rgb(65, 195, 255);
+    --bg-color: white;
+    --component-color: rgb(230, 230, 230);
+    --text-main-color: rgb(35, 76, 88);
 }
 
-*{
+* {
     font-family: 'Quicksand', sans-serif !important;
-    color:var(--text-main-color);
+    color: var(--text-main-color);
 }
 
-body{
-    margin:0;
+body {
+    margin: 0;
     padding: 0;
     background-color: var(--bg-color);
 }
 
-table{
+table {
     border-collapse: collapse;
 }
 
@@ -35,63 +35,64 @@ td {
     padding: 8px;
     outline-width: 1px;
     outline-style: solid;
-  }
+}
 
-.MuiButton-text{
-    color:var(--text-main-color);
+.MuiButton-text {
+    color: var(--text-main-color);
 }
 
 ::-webkit-scrollbar {
     width: 5px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--quaternary-color);
-  }
+    height: 5px;
+}
 
-.active{
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--quaternary-color);
+}
+
+.active {
     background-color: var(--quaternary-color);
     color: white !important;
     fill: white !important;
 }
 
-.active > svg > path{
+.active>svg>path {
     color: white !important;
 }
 
-.active > span > svg > path{
+.active>span>svg>path {
     color: white !important;
 }
 
-.active:hover{
+.active:hover {
     color: var(--text-main-color) !important;
 }
 
-.active:hover > svg > path{
+.active:hover>svg>path {
     color: var(--text-main-color) !important;
 }
 
-.active:hover > span > svg > path {
+.active:hover>span>svg>path {
     color: var(--text-main-color) !important;
 }
 
-.active-menu{
+.active-menu {
     color: var(--quaternary-color);
     transform: scale(1.2, 1.2);
 }
 
-.topBtn{
+.topBtn {
     bottom: 50px;
     right: 50px;
     position: fixed;
@@ -102,11 +103,208 @@ td {
     transition: all ease-in-out 150ms;
 }
 
-.topBtn:hover{
+.topBtn:hover {
     background-color: var(--secondary-color);
     transform: scale(1.2, 1.2);
 }
 
-.svgDisabled > path{
+.svgDisabled>path {
     color: rgb(196, 196, 196) !important;
+}
+
+.MuiTimelineDot-root>svg>path {
+    color: white;
+}
+
+.line-text {
+    font-family: arial !important;
+    color: #9d9d9d;
+}
+
+/* .section SECTION
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.section {
+    padding: 50px 0;
+}
+
+.section .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.section h1 {
+    font-size: 2.5rem;
+}
+
+.section h2 {
+    font-size: 1.3rem;
+}
+
+
+/* TIMELINE
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.timeline {
+    white-space: nowrap;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    direction: rtl;
+    text-align: left;
+}
+
+.hide-tlitem {
+    opacity: 0;
+    filter:blur(5px);
+    transition: all 1s;
+}
+
+.show-tlitem {
+    opacity: 1;
+    filter:blur(0);
+}
+
+.timeline ol {
+    font-size: 0;
+    width: 100vw;
+    padding: 37vh 0;
+    transition: all 1s;
+    padding-right: 400px;
+}
+
+.timeline ol li {
+    position: relative;
+    display: inline-block;
+    list-style-type: none;
+    width: 280px;
+    height: 3px;
+    background: var(--primary-color);
+}
+
+.timeline ol li:last-child {
+    width: 280px;
+}
+
+.timeline ol li:not(:first-child) {
+    margin-left: 14px;
+}
+
+.timeline ol li::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: calc(100% + 1px);
+    bottom: 0;
+    width: 12px;
+    height: 12px;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background: var(--tertiary-color)
+}
+
+.timeline ol li div {
+    position: absolute;
+    left: calc(100% + 7px);
+    width: 280px;
+    padding: 15px;
+    font-size: 1rem;
+    white-space: normal;
+    color: black;
+    background: white;
+    border-bottom: 1px solid black;
+}
+
+.timeline ol li div:hover {
+    border-bottom: 1px solid var(--primary-color);
+}
+
+.timeline ol li div::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+
+.timeline ol li:nth-child(odd) div {
+    top: -20px;
+    transform: translate(-50%,-100%);
+    
+}
+
+
+.timeline ol li:nth-child(even) div {
+    top: calc(100% + 20px);
+    transform: translateX(-50%);
+}
+
+.timeline time {
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    color: var(--quaternary-color);
+}
+
+/* GENERAL MEDIA QUERIES
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+@media screen and (max-width: 599px) {
+
+    .timeline ol,
+    .timeline ol li {
+        width: auto;
+    }
+
+    .timeline ol {
+        padding: 0;
+        transform: none !important;
+    }
+
+    .timeline ol li {
+        display: block;
+        height: auto;
+        background: transparent;
+    }
+
+    .timeline ol li:first-child {
+        margin-top: 25px;
+    }
+
+    .timeline ol li:not(:first-child) {
+        margin-left: auto;
+    }
+
+    .timeline ol li div {
+        width: 94%;
+        height: auto !important;
+        margin: 0 auto 25px;
+    }
+
+    .timeline ol li div {
+        position: static;
+    }
+
+    .timeline ol li:nth-child(odd) div {
+        transform: none;
+    }
+
+    .timeline ol li:nth-child(odd) div::before,
+    .timeline ol li:nth-child(even) div::before {
+        left: 50%;
+        top: 100%;
+        transform: translateX(-50%);
+        border: none;
+        border-left: 1px solid white;
+        height: 25px;
+    }
+
+    .timeline ol li:last-child,
+    .timeline ol li:nth-last-child(2) div::before,
+    .timeline ol li:not(:last-child)::after,
+    .timeline .arrows {
+        display: none;
+    }
 }
