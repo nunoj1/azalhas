@@ -3,12 +3,24 @@ import React, { useEffect, useState } from 'react'
 import { School, SportsSoccer, MusicNote, VolunteerActivism } from '@mui/icons-material';
 import { trpc } from '../../utils/trpc';
 import { Categories, MainEvents } from '@prisma/client';
+import EventDetailsModal from '../Modals/EventDetails';
+import { date } from 'zod';
 
 function TimeLine() {
 
     const [timeLineData, setTimeLineData] = useState<(MainEvents & { category: Categories; })[]>();
+    const [selectedEvent, setSelectedEvent] = useState<number>(0);
+    const [modalOpen, setModalOpen] = useState<boolean>(false);
 
     const { data: itemsData, isLoading } = trpc.mainEvents.getTimeLineData.useQuery();
+
+    useEffect(() => {
+        if(selectedEvent > 0){
+            setModalOpen(true);
+        }else {
+            setModalOpen(false);
+        }
+    }, [selectedEvent])
 
     useEffect(() => {
         if (itemsData != null && itemsData != undefined) {
@@ -60,7 +72,7 @@ function TimeLine() {
     }
 
     const getBorderColor = (category: string) => {
-        let classList = "hide-tlitem p-1 hover:border rounded-xl hover:border-b-8 ";
+        let classList = "hide-tlitem p-1 hover:border rounded-xl hover:border-b-8 cursor-pointer ";
         if (category === "education") classList += "border-education"
         else if (category === "futsal") classList += "border-futsal"
         else if (category === "music") classList += "border-music"
@@ -70,13 +82,16 @@ function TimeLine() {
 
     if (isLoading) return (<div>Loading...</div>)
     return (
+
+        <div>{modalOpen && <EventDetailsModal eventId={selectedEvent!} setSelectedEvent={setSelectedEvent}/>}
         <section className='timeline w-[96vw] absolute left-[60px]'>
             <ol>
                 {timeLineData?.map((item, index) => {
-                    if (item.id === 0) return <li className="today-li" key={index} ><div className='today-item'>Dia Atual</div></li>
+                    if (item.id === 0) return <li className="today-li old-event" key={index} ><div className='today-item'>Dia Atual</div></li>
 
-                    return <li key={index} >
-                        <div className={getBorderColor(item.category.name)}>
+                    return <li key={index} className={item.date < new Date() ? 'old-event' : ''}>
+                        
+                        <div className={getBorderColor(item.category.name)} onClick={() => setSelectedEvent(item.id)}>
                             {getCategoryIcon(item.category.name)}
                             <br />
                             <span>
@@ -90,7 +105,7 @@ function TimeLine() {
                     </li>
                 })}
             </ol>
-        </section>
+        </section></div>
     )
 }
 

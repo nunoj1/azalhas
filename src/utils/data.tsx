@@ -1,6 +1,5 @@
 import React from 'react'
-import dynamic from 'next/dynamic'
-import { SportsSoccer, MusicNote, Info, VolunteerActivism, Settings, Login, Logout, Home } from '@mui/icons-material';
+import { SportsSoccer, MusicNote, Info, VolunteerActivism, Settings, Login, Logout, Home, School } from '@mui/icons-material';
 
 
 export const data: any = {
@@ -24,7 +23,12 @@ export const data: any = {
                 titlePt: "Música",
                 titleEn: "Music"
             },
-
+            {
+                icon: <School />,
+                link: "/education",
+                titlePt: "Educação",
+                titleEn: "Education"
+            },
             {
                 icon: <VolunteerActivism />,
                 link: "/charity",
@@ -39,11 +43,11 @@ export const data: any = {
             }
         ],
         menuSettingsLoggedIn: [
-            {
-                icon: <Settings />,
-                titlePt: "Opções",
-                titleEn: "Settings"
-            },
+            // {
+            //     icon: <Settings />,
+            //     titlePt: "Opções",
+            //     titleEn: "Settings"
+            // },
             {
                 icon: <Logout />,
                 titlePt: "Terminar Sessão",
@@ -57,11 +61,11 @@ export const data: any = {
                 titlePt: "Inciar Sessão",
                 titleEn: "Login"
             },
-            {
-                icon: <Settings />,
-                titlePt: "Opções",
-                titleEn: "Settings"
-            }
+            // {
+            //     icon: <Settings />,
+            //     titlePt: "Opções",
+            //     titleEn: "Settings"
+            // }
         ]
     },
     navbar:{
@@ -83,6 +87,12 @@ export const data: any = {
             {
                 textPt: "Música",
                 textEn: "Music"
+            }
+        ],
+        education : [
+            {
+                textPt: "Educação",
+                textEn: "Education"
             }
         ],
         charity : [
@@ -115,22 +125,24 @@ export const data: any = {
             {
                 icon: <SportsSoccer />,
                 link: "/futsal",
-                img: "/futsalCard.png",
                 titlePt: "Futsal",
                 titleEn: "Futsal"
             },
             {
                 icon: <MusicNote />,
                 link: "/music",
-                img: "/rapCard.jpg",
                 titlePt: "Música",
                 titleEn: "Music"
             },
-
+            {
+                icon: <School />,
+                link: "/education",
+                titlePt: "Caridade",
+                titleEn: "Charity"
+            },
             {
                 icon: <VolunteerActivism />,
                 link: "/charity",
-                img: "/charityCard.jpg",
                 titlePt: "Caridade",
                 titleEn: "Charity"
             },

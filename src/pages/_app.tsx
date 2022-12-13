@@ -8,7 +8,7 @@ import "../styles/globals.css";
 
 import Sidebar from "../components/Sidebar/Sidebar";
 import Header from "../components/Header/Header";
-import { useState } from "react";
+import {  useState } from "react";
 import { AnimatePresence, domAnimation, LazyMotion, m } from "framer";
 import ButtonTop from "../components/Buttons/ButtonTop";
 
@@ -17,7 +17,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   pageProps: { session, ...pageProps },
 }) => {
 
-  const [active,setActive]=useState(0);
+  const [active, setActive] = useState(0);
 
   const animation = {
     name: 'Slide Right',
@@ -45,7 +45,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 
   return (
     <SessionProvider session={session}>
-      <Sidebar session={session} />
+      <Sidebar />
       <div className="w-full min-h-full flex flex-row">
         {/*  Fake SideBar */}
         <div className="w-[50px] min-h-screen"></div>
@@ -55,15 +55,15 @@ const MyApp: AppType<{ session: Session | null }> = ({
             <AnimatePresence exitBeforeEnter>
               <m.div
                 key={router.route.concat(animation.name)}
-                className="page-wrap"
+                className="page-wrap mt-[109px]"
                 initial="initial"
                 animate="animate"
                 exit="exit"
                 variants={animation.variants}
                 transition={animation.transition}
               >
-                <Component {...pageProps} active={active}/>
-                <ButtonTop/>
+                <Component {...pageProps} active={active} />
+                <ButtonTop />
               </m.div>
             </AnimatePresence>
           </LazyMotion>

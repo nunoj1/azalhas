@@ -254,11 +254,20 @@ td {
     opacity: 0 !important;
 }
 
-.today-item{
+.today-li:nth-child(even) .today-item{
     border: none !important;
     background: var(--primary-color) !important;
     border-radius: 30px;
-    top: -27px !important;
+    top: -24px !important;
+    width: 120px !important;
+    cursor: default;
+    font-size: 14px !important;
+}
+.today-li:nth-child(odd) .today-item{
+    border: none !important;
+    background: var(--primary-color) !important;
+    border-radius: 30px;
+    top: 27px !important;
     width: 120px !important;
     cursor: default;
     font-size: 14px !important;
@@ -266,6 +275,11 @@ td {
 .today-item:hover{
     background: var(--secondary-color) !important;
     transition: all 0.5s;
+}
+
+.old-event{
+    background: lightgray !important;
+    height: 3px !important;
 }
 
 .school-icon > path{

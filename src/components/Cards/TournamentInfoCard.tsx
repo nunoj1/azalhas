@@ -27,6 +27,22 @@ function TournamentInfoCard() {
         }
     }, [itemsData])
 
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show-tlitem');
+                }
+                else {
+                    entry.target.classList.remove('show-tlitem');
+                }
+            });
+        })
+
+        const hiddenElements = document.querySelectorAll('.hide-tlitem');
+        hiddenElements.forEach((el) => observer.observe(el));
+    }, [selectedTournamentData])
+
     const getLastIndex = () => {
         if(itemsData !== null && itemsData !== undefined){
             return itemsData.length - 1;
@@ -35,7 +51,7 @@ function TournamentInfoCard() {
     }
 
     return (
-        <div className='m-[6px] flex flex-col justify-center items-center p-5 border min-w-[49%] h-[300px] rounded-sm border-tertiary'>
+        <div className='m-[6px] flex flex-col justify-center items-center p-5 border min-w-[49%] h-[300px] rounded-sm hide-tlitem'>
             <div className='flex flex-row justify-center items-center pb-4'>
                 <button disabled={selectedTournament === 0} onClick={() => setSelectedTournament(selectedTournament - 1)}>
                     <ArrowBackIosIcon className={`${selectedTournament === 0 ? 'svgDisabled' : ""}`} />

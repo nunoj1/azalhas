@@ -89,10 +89,6 @@ export const tournamentsRouter = router({
 
             let newStatisticsList: Statistics[] = statisticList;
 
-            console.log(tournament.startDate);
-            console.log(new Date());
-            console.log(tournament.startDate < new Date())
-
             if(tournament.startDate < new Date()){
                 tournament.games?.forEach((game) => {
 

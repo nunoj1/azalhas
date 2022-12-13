@@ -114,7 +114,7 @@ model MainEvents {
   categoryId   Int
   category     Categories @relation(fields: [categoryId], references: [id])
   gameId       Int?
-  game         Games?      @relation(fields: [gameId], references: [id])
+  game         Games?     @relation(fields: [gameId], references: [id])
   realtedPosts Posts[]
 }
 

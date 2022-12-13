@@ -32,9 +32,25 @@ function GamesInfoCard() {
         }
     }, [selectedGame])
 
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show-tlitem');
+                }
+                else {
+                    entry.target.classList.remove('show-tlitem');
+                }
+            });
+        })
+
+        const hiddenElements = document.querySelectorAll('.hide-tlitem');
+        hiddenElements.forEach((el) => observer.observe(el));
+    }, [selectedGameData])
+
     if (!itemsData || isLoading) return <p>Loading...</p>
     return (
-        <div className='m-[6px] flex flex-col justify-center items-center p-5 border min-w-[49%] h-[300px] rounded-sm border-tertiary'>
+        <div className='m-[6px] flex flex-col justify-center items-center p-5 border min-w-[49%] h-[300px] rounded-sm hide-tlitem'>
             <div className='flex flex-row justify-center items-center gap-5'>
                 <div className='row-start-2'>
                     <img className='w-[150px] h-[150px] object-cover' src={selectedGameData?.team1?.picture ?? ''} />

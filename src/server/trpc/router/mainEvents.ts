@@ -29,10 +29,30 @@ export const mainEventsRouter = router({
             return item;
         }),
     getTimeLineData: publicProcedure.query(async ({ ctx }) => {
-       return await ctx.prisma.mainEvents.findMany({
-        include: {
-            category: true,
-        }
-       });
-     }),
+        return await ctx.prisma.mainEvents.findMany({
+            include: {
+                category: true,
+            },
+            orderBy:{
+                date: 'desc'
+            }
+        });
+    }),
+    getEventById: publicProcedure
+        .input(
+            z.object({
+                id: z.number()
+            })
+        )
+        .query(async ({ input, ctx }) => {
+            return await ctx.prisma.mainEvents.findFirst({
+                where: {
+                    id: input.id
+                },
+                include: {
+                    category: true,
+                    realtedPosts: true
+                }
+            });
+        })
 });

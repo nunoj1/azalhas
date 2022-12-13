@@ -46,4 +46,22 @@ export const gamesRouter = router({
             }
         });
     }),
+    getGameById: publicProcedure
+        .input(
+            z.object({
+                id: z.number()
+            })
+        )
+        .query(async ({ input, ctx }) => {
+            return await ctx.prisma.games.findFirst({
+                where: {
+                    id: input.id
+                },
+                include: {
+                    team1: true,
+                    team2: true,
+                    tournament: true
+                }
+            });
+        })
 });
