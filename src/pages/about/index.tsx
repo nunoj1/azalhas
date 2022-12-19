@@ -41,7 +41,11 @@ function index(active: any) {
   // createDefaultValues();
 
   return (
-    null
+    <div className="mx-[15%] text-center border-x p-[2rem]">
+      {
+            activePage === 0 ? <About /> : <Contacts/>
+      }
+    </div>
   )
 }
 

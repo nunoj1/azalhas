@@ -75,7 +75,7 @@ export const data: any = {
                 textEn: "Futsal"
             },
             {
-                textPt: "Estatisticas",
+                textPt: "Estatísticas",
                 textEn: "Statistics"
             },
             {
@@ -113,10 +113,6 @@ export const data: any = {
             {
                 textPt: "Contactos",
                 textEn: "Contacts"
-            },
-            {
-                textPt: "Parcerias",
-                textEn: "Sponsorships"
             }
         ],
     },
@@ -147,5 +143,11 @@ export const data: any = {
                 titleEn: "Charity"
             },
         ]
+    },
+    about: {
+        about: {
+
+        }
     }
+
 }

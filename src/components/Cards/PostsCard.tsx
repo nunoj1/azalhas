@@ -41,11 +41,13 @@ function PostsCard(props: Props) {
 
         const hiddenElements = document.querySelectorAll('.hide-tlitem');
         hiddenElements.forEach((el) => observer.observe(el));
+        
     }, [postsData])
 
     if (isLoading || postsData === undefined) return <div>Loading...</div>
     return (
         <section className='w-full flex items-center flex-col '>
+            <Typography className='hide-tlitem text-xl font-bold m-4'>Últimas Noticias:</Typography>
             {
                 postsData.map((item, index) => {
                     return <div className='border w-2/3 text-left m-4 p-4 space-y-2 hide-tlitem' key={index}>

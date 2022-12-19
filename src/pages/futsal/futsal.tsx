@@ -13,7 +13,6 @@ function Futsal() {
                 <TournamentInfoCard />
 
             </div>
-            <Typography className='text-xl font-bold m-4'>Últimas Noticias:</Typography>
             <PostsCard categoryId={1} mainEventId={0} isHome={false} />
         </div>
     )
